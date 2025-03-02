@@ -12,28 +12,41 @@ body {
     text-align: center;
 }
 
-.cover-image {
+/* 固定標題區域樣式 */
+.index-header {
+    position: fixed; /* 固定在頁面頂部 */
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100px;
+    background-color: #8a2a2b; /* 禮賓色 */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 加陰影讓標題更突出 */
+    z-index: 1000;
 }
 
-.title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 3rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+/* 標誌樣式 */
+.logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
 }
+
+.logo {
+    height: 50px; /* 標誌高度 */
+    margin-right: 1px; /* 標誌與文字之間的距離 */
+}
+
 
 /* Menu icon 樣式 */
 .menu-icon {
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 40px;
     font-size: 2rem;
     background: none;
     border: none;
@@ -79,6 +92,322 @@ body {
     background-color: rgba(255, 255, 255, 0.2); /* 滑鼠移上時的背景色變化 */
 }
 
+/* 照片輪播區 */
+.carousel {
+    position: relative;
+    margin-top: 6%; /* 避免被固定 header 遮住 */
+    width: 100%;
+    height: 90%; /* 高度占視窗的 50% */
+    overflow: hidden;
+}
+
+.carousel-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+.carousel-slide {
+    flex: 1 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 填滿容器並保持比例 */
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    max-width: 80%; /* 限制標題文字寬度 */
+    opacity: 0; /* 初始透明 */
+    animation: fadeIn 1s ease-out forwards; /* 1秒淡入動畫 */
+    animation-delay: 0.5s; /* 延遲0.5秒啟動 */
+}
+
+.carousel-button {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.5rem;
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
+}
+
+/* 台大背景區淡入效果 */
+.ntu-background {
+    position: relative;
+    height: 50%;
+    background: url('ntu.jpg') center/cover no-repeat;
+    transition: transform 1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 淡入動畫 */
+.text-overlay h1 {
+    color: white;
+    font-size: 3rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.text-overlay h1.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* 從稍微下方滑入 */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.news-caption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem; 
+    color: #8a2a2b;
+    animation-delay: 0.8s;
+}
+
+.latest-news {
+    margin: 20px auto;
+    max-width: 1200px;
+    display: grid;
+    position: relative;
+    overflow: hidden; /* 防止內容溢出 */
+}
+
+.news-item {
+    flex: 0 0 48%; /* 每次只顯示兩個項目 */
+    min-height: 200px; /* 確保所有卡片高度一致 */
+    background: #f9f9f9;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.news-wrapper {
+    display: flex;
+    animation-delay: 1s;
+    transition: transform 1s ease-in-out;
+    overflow: hidden;
+    gap: 30px;
+}
+
+.news-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.news-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.news-item .news-content {
+    padding: 15px;
+}
+
+.news-item h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+.news-item p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+.news-item a {
+    display: block;
+    margin-top: 10px;
+    color: #8a2a2b;
+    text-decoration: none;
+}
+
+.news-item a:hover {
+    text-decoration: underline;
+}
+
+/* 最新消息圓點進度條 */
+.news-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 箭頭與進度條之間保持空間 */
+    margin-top: 30px;
+    gap: 30px; /* 箭頭與進度條間距 */
+}
+
+.news-dots {
+    display: flex;
+    gap: 12px; /* 圓點之間的水平間距 */
+    justify-content: center;
+    align-items: center;
+}
+
+.news-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.news-dot.active {
+    background: #8a2a2b;
+    transform: scale(1.2); /* 突出顯示激活的圓點 */
+}
+
+.news-arrow {
+    background: #8a2a2b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.news-arrow:hover {
+    background: #d94a4c;
+}
+
+.left-arrow {
+    left: -15px; /* 左側箭頭位置 */
+}
+
+.right-arrow {
+    right: -15px; /* 右側箭頭位置 */
+}
+
+/* 社群媒體與聯絡方式 */
+.footer {
+    background: #161F28;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: white;
+    padding: 20px 10px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contact-info p {
+    margin: 5px 0;
+}
+
+.social-icons a img {
+    background: #161F28;
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+}
+
+
+/* 整體新聞頁面的樣式 */
+.newspage {
+  height: 90%; 
+  max-width: 800px; /* 控制內容寬度 */
+  margin: 0 auto; /* 居中顯示 */
+  padding: 20px; /* 四周留空間 */
+  font-family: Arial, sans-serif; /* 字體樣式 */
+  line-height: 1.6; /* 增加行間距 */
+}
+
+/* 標題樣式 */
+.newspage h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px; /* 與分隔線留間距 */
+  color: #333;
+}
+
+/* 副標題樣式 */
+.newspage .subtopics ul {
+  list-style: none; /* 移除預設的項目符號 */
+  padding: 0; /* 移除內邊距 */
+  margin-bottom: 20px; /* 每段 ul 留空間 */
+}
+
+/* 每個 ul 的標題樣式 */
+.newspage .subtopics ul:first-child {
+  font-weight: bold;
+}
+
+/* li 樣式 */
+.newspage .subtopics li {
+  margin-left: 20px; /* 每個子項目縮排 */
+  list-style: disc; /* 使用圓點作為符號 */
+  margin-bottom: 10px; /* 每個項目間距 */
+}
+
+/* 鏈接樣式 */
+.newspage .subtopics a {
+  color: #007bff; /* 使用藍色字體 */
+  text-decoration: none; /* 移除底線 */
+}
+
+.newspage .subtopics a:hover {
+  text-decoration: underline; /* 滑過時增加底線 */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
 /* 固定標題區域樣式 */
 .subpage-header {
     position: fixed; /* 固定在頁面頂部 */
@@ -86,7 +415,7 @@ body {
     left: 0;
     width: 100%;
     height: 100px;
-    background-color: #8a2a2b; /* 深藍背景色 */
+    background-color: #8a2a2b; /* 禮賓色 */
     color: white;
     display: flex;
     align-items: center;
@@ -212,70 +541,59 @@ ul li {
 .subpage form {
     margin-top: 20px;
 }
-
-.subpage input, .subpage button {
+.subpage input{
     font-size: 1rem;
     padding: 10px;
     margin: 5px;
 }
 
-/* 社群媒體區塊 */
-.social-media {
-    display: flex; /* 使用 Flexbox 讓圖示並排 */
-    width: 100%;
-    gap: 1px; /* 圖示之間的間距 */
-    margin-top: 40px; /* 與上方內容的距離 */
-}
-
-/* 單個社群媒體項目 */
-.social-item {
-    text-align: center ;
-}
-
-/* 社群媒體圖片樣式 */
-.social-item img {
-    width: 90px; /* 調整圖片大小 */
-    height: 90px;
-    object-fit: cover; /* 圖片等比例縮放 */
-}
-
-/* 社群媒體文字樣式 */
-.social-item p {
-    margin-top: 20px;
+.subpage button {
     font-size: 1rem;
-    color: #333;
-    font-weight: bold;
+    padding: 10px;
+    margin: 5px;
+    background: #8a2a2b;
+    color: white;
+    border-radius: 10%;
 }
 
 
 /* 手機樣式：讓選單佔滿螢幕 */
 @media (max-width: 768px) {
     /* 封面調整 */
-    .header {
-        height: 100vh; /* 讓封面高度占滿整個手機螢幕 */
-        display: flex;
-        justify-content: center; /* 水平置中 */
-        align-items: center; /* 垂直置中 */
-        position: relative; /* 保持位置控制 */
-        overflow: hidden; /* 防止內容溢出 */
+    .carousel {
+        position: relative;
+        margin-top: 8%; /* 避免被固定 header 遮住 */
+        width: 100%;
+        height: 40vh; /* 高度占視窗的 50% */
+        overflow: hidden;
     }
-
-    .cover-image {
-        width: 100%; /* 圖片寬度填滿螢幕 */
-        height: 100%; /* 圖片高度填滿螢幕 */
-        object-fit: cover; /* 確保圖片保持比例並裁剪過多部分 */
+    .carousel-caption {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -20%);
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 0.6rem;
+        max-width: 90%; /* 限制標題文字寬度 */
     }
-
-    .title {
-        font-size: 1.5rem; /* 調整標題字體大小以適配手機 */
-        position: absolute; /* 確保標題置於圖片上方 */
-        top: 50%; /* 垂直居中 */
-        left: 50%; /* 水平居中 */
-        transform: translate(-50%, -50%); /* 修正定位，使標題真正居中 */
-        text-align: center; /* 標題文字置中 */
-        border: 1px; /* 添加些許內邊距，避免文字過於貼邊 */
-        line-height: 1.2; /* 增加文字行高，提升可讀性 */
+    .carousel-button {
+        position: absolute;
+        top: 50%;
+        font-size: 0.6rem;
     }
+}
+@media (max-width: 768px) {
+    .news-item {
+        flex: 0 0 100%; /* 每次只顯示一個項目 */
+        min-height: 200px; /* 確保所有卡片高度一致 */
+    }
+    .latest-news {
+        max-width: 100%;
+        flex-direction: column;
+     }
 }
 @media (max-width: 768px) {
     .side-menu {
