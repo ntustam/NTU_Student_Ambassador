@@ -3,39 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>臺灣大學國際禮賓學生計畫</title>
+    <title>臺灣大學國際禮賓學生計畫 NTU Student Ambassador</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- 固定標題區域 -->
-    <header class="subpage-header">
-        <a href="index.html" class="logo-link">
-            <img src="logo.png" alt="Logo" class="logo">
-        </a>
-    </header>
-    
-    <!-- 封面部分 -->
     <div class="header">
-        <img src="cover.jpg" alt="封面圖片" class="cover-image">
-        <h1 class="title">臺灣大學國際禮賓學生計畫<br>Your Door To NTU</h1>
-        
-        <button class="menu-icon" onclick="toggleMenu()">☰</button>
+        <div class="index-header">
+           <a href="index.html" class="logo-link">
+               <img src="logo.png" alt="Logo" class="logo">
+           </a>
+            <button class="menu-icon" onclick="toggleMenu()">☰</button>
+        </div>
     </div>
 
-    <!-- 側邊滑動選單 -->
+    
+<!-- 側邊滑動選單 -->
     <div id="menu" class="side-menu">
         <!-- 連結到其他子網站 -->
         <a href="about.html">關於我們</a>
         <a href="students.html">禮賓學生專區</a>
-        <a href="links.html">重要連結</a>
     </div>
 
+    <!-- 照片輪播區 -->
+    <div class="carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="photo1.JPG" alt="Photo 1">
+                <div class="carousel-caption">
+                    <h1>臺灣大學國際禮賓學生計畫</h1>
+                </div>
+            </div>
+               <div class="carousel-slide"><img src="photo2.jpg" alt="Photo 2"></div>
+               <div class="carousel-slide"><img src="photo3.JPG" alt="Photo 3"></div>
+            <!-- 點狀進度條 -->
+            <div class="carousel-indicators">
+               <span class="indicator active" data-index="0"></span>
+               <span class="indicator" data-index="1"></span>
+               <span class="indicator" data-index="2"></span>
+           </div>
+        </div>
+        <button class="carousel-button prev">&#10094;</button>
+        <button class="carousel-button next">&#10095;</button>
+    </div>
+    
+    <!-- Dynamic NTU Background Section -->
+    <!--section class="ntu-background"-->
+        <!--div class="text-overlay"-->
+        <!--/div-->
+    <!--/section-->
+    
+    <div class="news-caption">
+        <h2>最新消息</h2>
+    </div>
+    <!-- 最新消息 -->
+    <section class="latest-news">
+        <div class="news-wrapper">
+            <div class="news-item">
+                <div class="news-content">
+                    <h3>【禮學院】03/05 期初禮學院開始報名囉! </h3>
+                    <p>這次禮學院的主題是「外交事務及禮儀」，將邀請重量嘉賓，千萬不要錯過喔!</p>
+                    <a href="https://forms.gle/gnCJEUow7yW5XRXAA">進入連結 &rarr;</a>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-content">
+                    <h3>【任務】社群經營｜短影音企劃</h3>
+                    <p>收到警告信的朋友們，接任務的機會來了!</p>
+                    <a href="news.html">了解更多 &rarr;</a>
+                </div>
+            </div>
+        </div>
+        <div class="news-navigation">
+            <button class="news-arrow left-arrow">&#8249;</button>
+            <div class="news-dots">
+                <div class="news-dot active"></div>
+                <div class="news-dot"></div>
+                <div class="news-dot"></div>
+                <div class="news-dot"></div>
+                <!-- 對應每個消息項 -->
+            </div>
+            <button class="news-arrow right-arrow" >&#8250;</button>
+        </div>
+    </section>
+        <!-- 繼續添加更多消息卡片 -->
+    
+    <!-- 社群媒體與聯絡方式 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <p>地址：106319 臺北市大安區羅斯福路四段1號 禮賢樓7樓</p>
+                <p>電話：+886-2-3366-2007, +886-2-2362-6801</p>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/NTUOIASA" target="_blank"><img src="fb-icon.png" alt="Facebook"></a>
+                <a href="https://www.instagram.com/ntusa_ambassador/" target="_blank"><img src="ig-icon.png" alt="Instagram"></a>
+                <a href="https://oia.ntu.edu.tw/international-guests-scholars/student-ambassador-temp/student-ambassador-new" target="_blank"><img src="web-icon.png" alt="Website"></a>
+            </div>
+        </div>
+    </footer>
     <script>
         // 控制選單滑動
         function toggleMenu() {
             const menu = document.getElementById("menu");
             menu.classList.toggle("open");
         }
+        // 廣告區 (自動播放和箭頭控制)
+        let adCurrentIndex = 0; // 廣告區目前索引
+        const adSlides = document.querySelectorAll(".carousel-slide");
+        const adIndicators = document.querySelectorAll(".indicator");
+    
+        // 更新廣告進度條
+        function updateAdDots(index) {
+            adIndicators.forEach((indicator, idx) => {
+                indicator.classList.toggle("active", idx === index);
+            });
+        }
+    
+        // 廣告區更新輪播
+        function moveAdSlide(direction) {
+            if (adSlides.length > 0) {
+                adCurrentIndex = (adCurrentIndex + direction + adSlides.length) % adSlides.length;
+    
+                // 更新輪播位置
+                const adContainer = document.querySelector(".carousel-container");
+                adContainer.style.transform = `translateX(-${adCurrentIndex * 100}%)`;
+    
+                // 更新點狀進度條
+                updateAdDots(adCurrentIndex);
+            }
+        }
+    
+        // 廣告區左右箭頭控制
+        document.querySelector(".prev").addEventListener("click", () => moveAdSlide(-1));
+        document.querySelector(".next").addEventListener("click", () => moveAdSlide(1));
+    
+        // 廣告區自動播放
+        setInterval(() => moveAdSlide(1), 5000);
+    
+        // 最新消息區 (只要箭頭功能和進度條)
+        let newsCurrentIndex = 0; // 最新消息目前索引
+        const newsWrapper = document.querySelector(".news-wrapper");
+        const newsItems = document.querySelectorAll(".news-item");
+        const newsDots = document.querySelectorAll(".news-dot");
+        const newsTotalSlides = Math.ceil(newsItems.length / 1); // 每次顯示 1 張
+    
+        // 更新最新消息進度條
+        function updateNewsDots(index) {
+            newsDots.forEach((dot, idx) => {
+                dot.classList.toggle("active", idx === index);
+            });
+        }
+    
+        // 最新消息更新輪播
+        function updateNewsSlide(index) {
+            newsCurrentIndex = index;
+            newsWrapper.style.transform = `translateX(-${newsCurrentIndex * 100}%)`;
+            updateNewsDots(newsCurrentIndex);
+        }
+    
+        // 最新消息左右箭頭控制
+        document.querySelector(".left-arrow").addEventListener("click", () => {
+            if (newsCurrentIndex > 0) {
+                updateNewsSlide(newsCurrentIndex - 1);
+            } else {
+                updateNewsSlide(newsTotalSlides - 1); // 如果到第一張，跳到最後一張
+            }
+        });
+    
+        document.querySelector(".right-arrow").addEventListener("click", () => {
+            if (newsCurrentIndex < newsTotalSlides - 1) {
+                updateNewsSlide(newsCurrentIndex + 1);
+            } else {
+                updateNewsSlide(0); // 如果到最後一張，跳到第一張
+            }
+        });
     </script>
 </body>
 </html>
